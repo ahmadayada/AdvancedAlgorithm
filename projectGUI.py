@@ -130,7 +130,8 @@ c_box1.place(x=50, y=200)
 '''_________________________________________________________________________________________________________________'''
 # add input
 
-recursive_controll=0
+recursive_controll = 0
+
 
 def test_entery_int(entery):
     try:
@@ -151,37 +152,127 @@ def test_entery_int(entery):
         return 0
 
 
+def on_return1(*args):
+    global entery_rec1
+    global entery_rec2
+    global button1_rec_gen
+    set_text_entrey(entery_rec1, entery_rec2, button1_rec_gen)
+
+
+def on_return2(*args):
+    global entery_rec3
+    global entery_rec4
+    global button2_rec_gen
+    set_text_entrey(entery_rec3, entery_rec4, button2_rec_gen)
+
+
 def set_text_entrey(entrery1, entrery2, button):
     global recursive_controll
-    if len(entrery2.get()) == 0:
-        recursive_controll += 1
-        text = random_string()
-        entrery1.delete(0, END)
-        entrery2.delete(0, END)
-        entrery1.insert(0, text)
-        entrery1.config(state=DISABLED)
-        entrery2.config(state=DISABLED)
-        button.config(state=DISABLED)
-        return
-    else:
-        if test_entery_int(entrery2) == 1:
-            number = int(entrery2.get())
-            text = random_string(longer=number)
-            recursive_controll += 1
+    global string_rec1
+    global string_rec2
+    global string_rec_len1
+    global string_rec_len2
+    global button3_rec_gen
+    global button4_rec_gen
+
+    if len(str(entrery1.get())) == 0:
+        if len(entrery2.get()) == 0:
+            if recursive_controll < 2:
+                recursive_controll += 1
+                button4_rec_gen.config(state=ACTIVE)
+
+            text = random_string()
             entrery1.delete(0, END)
+            entrery2.delete(0, END)
             entrery1.insert(0, text)
+            if len(string_rec1) == 0:
+                string_rec1 = text
+                string_rec_len1 = 10
+            else:
+                string_rec2 = text
+                string_rec_len2 = 10
             entrery1.config(state=DISABLED)
             entrery2.config(state=DISABLED)
             button.config(state=DISABLED)
+            if recursive_controll == 2:
+                button3_rec_gen.config(state=ACTIVE)
+                button4_rec_gen.config(state=ACTIVE)
+            return
+        else:
+            if test_entery_int(entrery2) == 1:
+                number = int(entrery2.get())
+                text = random_string(longer=number)
+                if recursive_controll < 2:
+                    recursive_controll += 1
+                    button4_rec_gen.config(state=ACTIVE)
+
+                entrery1.delete(0, END)
+                entrery1.insert(0, text)
+                if len(string_rec1) == 0:
+                    string_rec1 = text
+                    string_rec_len1 = number
+                else:
+                    string_rec2 = text
+                    string_rec_len2 = number
+                entrery1.config(state=DISABLED)
+                entrery2.config(state=DISABLED)
+                button.config(state=DISABLED)
+                if recursive_controll == 2:
+                    button3_rec_gen.config(state=ACTIVE)
+                    button4_rec_gen.config(state=ACTIVE)
+            return
+    else:
+        if recursive_controll < 2:
+            recursive_controll += 1
+            button4_rec_gen.config(state=ACTIVE)
+        if len(string_rec1) == 0:
+            string_rec1 = str(entrery1.get())
+            if len(string_rec1) <= 10:
+                string_rec_len1 = len(string_rec1)
+            else:
+                string_rec_len1 = 10
+                string_rec1 = string_rec1[:10]
+        else:
+            string_rec2 = str(entrery1.get())
+            if len(string_rec2) <= 10:
+                string_rec_len2 = len(string_rec2)
+            else:
+                string_rec_len2 = 10
+                string_rec2 = string_rec2[:10]
+        entrery1.config(state=DISABLED)
+        entrery2.config(state=DISABLED)
+        button.config(state=DISABLED)
+        if recursive_controll == 2:
+            button3_rec_gen.config(state=ACTIVE)
+        return
+
+    # if len(string_rec1) != 0 and len(string_rec2) != 0:
 
     return
 
 
 def reset_all(e1, e2, e3, e4, b1, b2):
     global recursive_controll
-    print("globale before delete = {}".format(recursive_controll))
-    print("globale before delete = {}".format(recursive_controll))
-    recursive_controll -= 1
+    global string_rec1
+    global string_rec2
+    global string_rec_len1
+    global string_rec_len2
+    global button3_rec_gen
+    global button4_rec_gen
+
+    button3_rec_gen.config(state=DISABLED)
+    string_rec1 = ""
+    string_rec2 = ""
+    string_rec_len1 = 0
+    string_rec_len2 = 0
+
+    if recursive_controll > 0:
+        recursive_controll -= 1
+        button4_rec_gen.config(state=ACTIVE)
+
+    if recursive_controll == 0:
+        button4_rec_gen.config(state=DISABLED)
+
     b1.config(state=ACTIVE)
     b2.config(state=ACTIVE)
     e1.delete(0, END)
@@ -196,36 +287,58 @@ def reset_all(e1, e2, e3, e4, b1, b2):
 
 
 def run_pure_recursive(string1, string2, str_len1, str_len2):
+    global button3_rec_gen
     top2 = Toplevel()
     top2.wm_iconbitmap('./img/Halloween.ico')
-    top2.title("Results")
-    top2.geometry("500x350+170+150")
-    label_frame2 = LabelFrame(top2, text="Pure Algoruthme Results:", padx=2, pady=2)
-    label_frame2.pack(padx=2, pady=2)
-    label1 = Label(label_frame2, text="This is the first version of calculation Algorithm", padx=1, pady=1)
-    label1.pack()
-    label2 = Label(label_frame2, text="TEAM WORK :", padx=2, pady=2)
-    label2.pack()
-    label3 = Label(label_frame2, text="* Ahmad AYADA : M1 DSC\n\n"
-                                     + "* Ramez ALSIBAI : M1 DSC\n\n"
-                                     + "* Milad Zahediyami : M1 CPS2\n\n"
-                                     + "* Parsa Rajabzadeh : M1 CPS2\n")
-    label3.pack(padx=2, pady=2)
+    top2.title("Pure Recursive Results")
+    top2.geometry("400x150+170+150")
+    font2 = tkFont.Font(family="Times New Roman", size=16, weight="bold")
+    label_frame2 = LabelFrame(top2, text="The Algorithm Results:", padx=2, pady=2)
+    label_frame2.configure(font=font2)
+    label_frame2.grid(sticky='nsew', padx=1, pady=1)
+
+    label1 = Label(label_frame2, text="First String = " + string1 + " String length Equal a : " +
+                                      str(str_len1) + "  ", padx=2, pady=2)
+    font2 = tkFont.Font(family="Times New Roman", size=12, weight="normal", underline="False")
+
+    label1.configure(font=font2)
+    label1.grid(row=0, column=0, rowspan=2, sticky='ew', padx=2, pady=2)
+
+    label2 = Label(label_frame2, text="Second String = " + string2 + " String length Equal a : " +
+                                  str(str_len2) + "  ", padx=1, pady=1)
+    label2.configure(font=font2)
+    label2.grid(row=2, column=0, rowspan=2 , padx=2, pady=2)
+
+    font2 = tkFont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
+
+    start_time = time()
+    min_operations = recursive_edit_distance(string1, string2, len(string1), len(string2))
+    end_time = time()
+    my_time = '%3f seconds' % (end_time - start_time)
+    label3 = Label(label_frame2, text="Result : Minimum Operation(s) : " +
+                                      str(min_operations) + "\nRun Time : " +
+                                      str(my_time), padx=2, pady=2)
+    label3.configure(font=font2)
+    label3.grid(row=4, column=0, rowspan=2,)
+
+    button3_rec_gen.config(state=ACTIVE)
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
-    button.pack(padx=2, pady=2)
+    button.grid(row=6, column=0)
 
 
-label_string_recursive = Label(parent, text="Enter your 1st String ", bg='white')
+label_string_recursive = Label(parent, text="Enter your 1st String", bg='white')
 label_string_recursive.configure(font=my_font)
 label_string_recursive.place(x=300, y=201)
 
 entery_rec1 = ttk.Entry(parent)
+
 entery_rec1.place(x=500, y=201, width=140, height=25)
 label_string_recursive2 = Label(parent, text="String Size ( <=10 ) : ", bg='white')
 label_string_recursive2.place(x=645, y=201)
 entery_rec2 = ttk.Entry(parent)
 entery_rec2.place(x=760, y=201, width=35, height=25)
-
+entery_rec1.bind('<Return>', on_return1)
+entery_rec2.bind('<Return>', on_return1)
 button1_rec_gen = Button(parent, text='Generate String', command=lambda: set_text_entrey(entery_rec1, entery_rec2,
                                                                                          button1_rec_gen))
 button1_rec_gen.place(x=800, y=201, width=140, height=25)
@@ -239,19 +352,28 @@ label_string_recursive2 = Label(parent, text="String Size ( <=10 ) : ", bg='whit
 label_string_recursive2.place(x=645, y=251)
 entery_rec4 = ttk.Entry(parent)
 entery_rec4.place(x=760, y=251, width=35, height=25)
-
-button2_rec_gen = Button(parent, text='Generate String', command=lambda: set_text_entrey(entery_rec3, entery_rec4, button2_rec_gen))
+entery_rec3.bind('<Return>', on_return2)
+entery_rec4.bind('<Return>', on_return2)
+button2_rec_gen = Button(parent, text='Generate String',
+                         command=lambda: set_text_entrey(entery_rec3, entery_rec4, button2_rec_gen))
 button2_rec_gen.place(x=800, y=251, width=140, height=25)
 '''_________________________________________________________________________________________________________________'''
 label_string_recursive3 = Label(parent, text="Click to Get a results Test :", bg='white')
 label_string_recursive3.configure(font=my_font)
 label_string_recursive3.place(x=300, y=301)
-#button3_rec_gen = Button(parent, text='Start Test..', command=lambda: run_pure_recursive())
-#button3_rec_gen.place(x=550, y=301)
-button4_rec_gen = Button(parent, text='Reset All..', command=lambda: reset_all(entery_rec1, entery_rec2,
-                                                                                          entery_rec3, entery_rec4,
-                                                                                          button1_rec_gen,
-                                                                                          button2_rec_gen))
+string_rec1 = ""
+string_rec2 = ""
+string_rec_len1 = 0
+string_rec_len2 = 0
+button3_rec_gen = Button(parent, text='Start Test..', state=DISABLED,
+                         command=lambda: run_pure_recursive(string_rec1, string_rec2,
+                                                            string_rec_len1,
+                                                            string_rec_len2))
+button3_rec_gen.place(x=550, y=301)
+button4_rec_gen = Button(parent, text='Reset All..', state=DISABLED, command=lambda: reset_all(entery_rec1, entery_rec2,
+                                                                                               entery_rec3, entery_rec4,
+                                                                                               button1_rec_gen,
+                                                                                               button2_rec_gen))
 button4_rec_gen.place(x=650, y=301)
 '''_________________________________________________________________________________________________________________'''
 dynamic_programming = IntVar()
