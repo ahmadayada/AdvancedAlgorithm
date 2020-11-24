@@ -28,6 +28,6 @@ str1 =  "MASSSAL"
 str2 = "MSAVA"
         #"INHFFGLPETVEEERTLVIKSNGKRKRDDDESEEGSKYIRLERRLAQNLVKKFRLPEDADMASVTAKYQEGILTVVIKKLPPQPPKPKTVQIAVS"
 starting_time = time()
-print('minimum operations:',recursive_edit_distance(str1, str2, len(str1), len(str2)))
+print('minimum operations:', recursive_edit_distance(str1, str2, len(str1), len(str2)))
 ending_time = time()
 print('run time          : %3f seconds'%(ending_time-starting_time))
