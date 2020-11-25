@@ -22,40 +22,40 @@ def greedy_edit_distance(string1, string2):
     str1_last_chars = int(len(string1) / 2)
 
     for i in range(str1_last_chars, -1, -1):
-        str2 = i * "#" + string2
-        difference = len(str2) - len(string1)
-        str1 = string1 + difference * "#"
+        string2 = i * "#" + string2
+        difference = len(string2) - len(string1)
+        string1 = string1 + difference * "#"
         n = 0
-        for a, b in zip(str1, str2):
+        for a, b in zip(string1, string2):
             if a != b: n += 1
         if n < minimum_edit_distance:
             minimum_edit_distance = n
-            string1_alignment = str1
-            string2_alignment = str2
+            string1_alignment = string1
+            string2_alignment = string2
     # 2: shift string1 on string2 to find maximum of overlapped characters
     #first len(string1)/2 chars  of string1 shifts on  last len(string1)/2 chars of string 2
     str2_last_chars = int(len(string2) - len(string1) / 2) + 1
     for j in range(1, str2_last_chars):
 
-        maximum = max(len(str1), len(string2))
-        str2 = string2 + "#" * (maximum - len(string2))
-        str1 = j * "#" + string1
-        str1 = str1 + "#" * (maximum - len(str1))
+        maximum = max(len(string1), len(string2))
+        string2 = string2 + "#" * (maximum - len(string2))
+        string1 = j * "#" + string1
+        string1 = string1 + "#" * (maximum - len(string1))
 
         m = 0
-        for a, b in zip(str1, str2):
+        for a, b in zip(string1, string2):
             if a != b: m += 1
         if m < minimum_edit_distance:
             minimum_edit_distance = m
-            string1_alignment = str1
-            string2_alignment = str2
+            string1_alignment = string1
+            string2_alignment = string2
     print("\nstring1           : " + string1)
     print("string1 alignment : " + string1_alignment)
     print("final   alignment : " + string2_alignment)
     return ('minimum operations: %3d' %(minimum_edit_distance))
 
 
-def swap(str1, str2):
+def swap(string1, string2):
     return string2, string1
 
 # AAM63747 cl 6
