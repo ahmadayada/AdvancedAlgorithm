@@ -5,31 +5,25 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 from recursive import *
 from StringGenerator import *
+from random import *
 
 root = Tk()
 sizex = 1200
 sizey = 600
 posx = 200
 posy = 200
+# set Title
 root.title("Advanced Algorithm")
 
 # set root background
 root.configure(background="white")
+# set root Icon image
 root.wm_iconbitmap('./img/Search.ico')
-# style = classic
-# style = ttk.Style()
-# style.theme_use('classic')
-# style.configure('TLabel', background="white")
-# style.configure('TButton', background="white")
-# style.configure('TRadioButton', background="#ffffff")
 
 # width x height + x_offset + y_offset:
 root.wm_geometry("%dx%d+%d+%d" % (sizex, sizey, posx, posy))
 
 '''_________________________________________________________________________________________________________________'''
-
-
-
 
 
 def hello():
@@ -116,10 +110,8 @@ my_canvas.create_window((0, 0), window=parent, anchor="nw")
 
 # noinspection PyBroadException
 try:
-
     background_image = ImageTk.PhotoImage(Image.open("./img/background.png"))
     background_image_label = Label(parent, image=background_image)
-    # background_image_label.(frame.scrollable_frame)(x=0, y=0, relwidth=1, relheight=1)
     background_image_label.pack(fill=BOTH, expand=YES)
 
 except Exception:
@@ -297,18 +289,18 @@ def reset_all(e1, e2, e3, e4, b1, b2):
     if recursive_controll == 0:
         button4_rec_gen.config(state=DISABLED)
 
-
+    e1.delete(0, END)
+    e2.delete(0, END)
+    e3.delete(0, END)
+    e4.delete(0, END)
+    e1.config(state=NORMAL)
+    e2.config(state=NORMAL)
+    e3.config(state=NORMAL)
+    e4.config(state=NORMAL)
     b1.config(state=ACTIVE)
     b2.config(state=ACTIVE)
-    e1.delete(0, END)
-    e1.config(state=NORMAL)
-    e2.delete(0, END)
-    e2.config(state=NORMAL)
-    e3.delete(0, END)
-    e3.config(state=NORMAL)
-    e4.delete(0, END)
-    e4.config(state=NORMAL)
     return
+
 
 # Run Pure Rcursive in other windows
 def run_pure_recursive(string1, string2, str_len1, str_len2):
@@ -330,7 +322,7 @@ def run_pure_recursive(string1, string2, str_len1, str_len2):
     label1.configure(font=font2)
     label1.pack(fill=BOTH, expand=1)
 
-    label2 = Label(label_frame2, text="Second String = " + string2 + " String length Equal a : " +
+    label2 = Label(label_frame2, text="2nd String = " + string2 + " String length Equal a : " +
                                       str(str_len2) + "  ", padx=1, pady=1)
     label2.configure(font=font2)
     label2.pack(fill=BOTH, expand=1)
@@ -351,6 +343,123 @@ def run_pure_recursive(string1, string2, str_len1, str_len2):
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
     button.pack()
 
+
+'''_________________________________________________________________________________________________________________'''
+
+
+def test_entery_int2(entery, minimum, maximum):
+    try:
+        int(entery.get())
+        my_number = int(entery.get())
+        if minimum <= my_number <= maximum:
+            return 1
+        else:
+            messagebox.showerror(title="String Size Input", message="Error : Please input : " + str(minimum) +
+                                                                    " < = Number <= " + str(maximum) + "\r\n" +
+                                                                    "OR KEEP IT EMPTY \r\n!!" +
+                                                                    "String Size Randomize bitween 10 & 20")
+            return 0
+    except ValueError:
+        messagebox.showerror(title="String Size Input", message="Error :" +
+                                                                "Please input a <NUMBER> Value\r\n" +
+                                                                "Or KEEP IT EMPTY\r\n" +
+                                                                "String Size Randomize bitween 10 & 20")
+        return 0
+
+
+p_dynamic = 0
+
+
+def generate_string_dynamic(string_entery, size_entery, generator_button, reset_button):
+    global string_p_dynamic1
+    global string_p_dynamic2
+    if len(str(string_entery.get())) == 0:
+        if len(str(size_entery.get())) == 0:
+            my_random = randrange(10, 17, 2)
+            my_random_string = random_string(chars=string.ascii_uppercase, longer=my_random)
+            if len(string_p_dynamic1) == 0:
+                string_p_dynamic1 = my_random_string
+            else:
+                string_p_dynamic2 = my_random_string
+            string_entery.delete(0, END)
+            string_entery.insert(0, string_p_dynamic1)
+            size_entery.delete(0, END)
+            size_entery.insert(0, str(my_random))
+            generator_button.config(state=DISABLED)
+            size_entery.config(state=DISABLED)
+            string_entery.config(state=DISABLED)
+            reset_button.config(state=ACTIVE)
+            return
+        else:
+            if test_entery_int2(size_entery, 10, 20) == 1:
+                my_longer = int(size_entery.get())
+                my_random_string = random_string(chars=string.ascii_uppercase, longer=my_longer)
+                if len(string_p_dynamic1) == 0:
+                    string_p_dynamic1 = my_random_string
+                else:
+                    string_p_dynamic1 = my_random_string
+                string_entery.delete(0, END)
+                string_entery.insert(0, my_random_string)
+                generator_button.config(state=DISABLED)
+                size_entery.config(state=DISABLED)
+                string_entery.config(state=DISABLED)
+                reset_button.config(state=ACTIVE)
+                return
+            else:
+                messagebox.showerror("Error Input N1", "Error in input Number !!")
+                return
+    else:
+        if len(str(size_entery.get())) == 0:
+            if len(string_p_dynamic1) == 0:
+                string_p_dynamic1 = str(string_entery.get())
+            else:
+                string_p_dynamic2 = str(string_entery.get())
+            my_longer = str(len(string_entery.get()))
+            size_entery.delete(0, END)
+            size_entery.insert(0, my_longer)
+            generator_button.config(state=DISABLED)
+            size_entery.config(state=DISABLED)
+            string_entery.config(state=DISABLED)
+            reset_button.config(state=ACTIVE)
+            return
+        else:
+            if test_entery_int2(size_entery, 10, 20) == 1:
+                my_longer = int(size_entery.get())
+                my_string_entery = str(string_entery.get())
+                my_string_entery = my_string_entery[:my_longer]
+                if len(string_p_dynamic1) == 0:
+                    string_p_dynamic1 = my_string_entery
+                else:
+                    string_p_dynamic2 = my_string_entery
+                string_entery.delete(0, END)
+                string_entery.insert(0, my_string_entery)
+                size_entery.delete(0, END)
+                size_entery.insert(0, my_longer)
+                generator_button.config(state=DISABLED)
+                size_entery.config(state=DISABLED)
+                string_entery.config(state=DISABLED)
+                reset_button.config(state=ACTIVE)
+                return
+            else:
+                messagebox.showerror("Error Input N2", "Error in input Number !!!!")
+                return
+
+
+def reset_all_2(*args):
+    n = len(args)
+    for i in range(n):
+        print("arg : ", i, "\ntype of : ", type(args[i]), "\nits : ", args[i])
+        if isinstance(args[i], str):
+            print("N° ", i, " Is String class")
+            args[i]= "hello"
+        if isinstance(args[i], ttk.Entry):
+            print("N° ", i, " Is String tkinter ttk Entry")
+        if isinstance(args[i], Button):
+            print("N° ", i, " Is String tkinter ttk Button")
+    print("args size = {0}".format(n))
+
+
+'''END METHODE INSERTION TO STRING'''
 
 '''_________________________________________________________________________________________________________________'''
 ''' Starting with Pure Recursive '''
@@ -424,32 +533,52 @@ label_string_p_progaming1.place(x=300, y=351)
 
 '''__________________________________________________________________________________________________________________'''
 
-entery_progam1 = ttk.Entry(parent)
-entery_progam1.place(x=500, y=351, width=140, height=25)
+entery_p_dynamic_string1 = ttk.Entry(parent)
+entery_p_dynamic_string1.place(x=500, y=351, width=140, height=25)
 
-label_string_p_progaming2 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='blue')
+label_string_p_progaming2 = Label(parent, text="String Size : ", bg='white', fg='blue')
 label_string_p_progaming2.place(x=645, y=351)
-entery_progam2 = ttk.Entry(parent)
-entery_progam2.place(x=760, y=351, width=35, height=25)
-entery_progam1.bind('<Return>', on_return1)
-entery_progam2.bind('<Return>', on_return1)
-button_programing1 = Button(parent, text='Generate String')
-button_programing1.place(x=800, y=351, width=140, height=25)
+entery_p_dynamic_size1 = ttk.Entry(parent)
+entery_p_dynamic_size1.place(x=760, y=351, width=35, height=25)
+entery_p_dynamic_string1.bind('<Return>')
+entery_p_dynamic_size1.bind('<Return>')
+button_p_dyanamic_generator1 = Button(parent, text='Generate String',
+                                      command=lambda: generate_string_dynamic(entery_p_dynamic_string1,
+                                                                              entery_p_dynamic_size1,
+                                                                              button_p_dyanamic_generator1,
+                                                                              button_p_dynamic_rest))
+button_p_dyanamic_generator1.place(x=800, y=351, width=140, height=25)
 '''_________________________________________________________________________________________________________________'''
 
 label_string_p_progaming3 = Label(parent, text="Enter your 2nd String ", bg='white', fg='blue')
 label_string_p_progaming3.configure(font=my_font)
 label_string_p_progaming3.place(x=300, y=401)
-entery_progam3 = ttk.Entry(parent)
-entery_progam3.place(x=500, y=401, width=140, height=25)
-label_string_progaming4 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='blue')
+entery_p_dynamic_string2 = ttk.Entry(parent)
+entery_p_dynamic_string2.place(x=500, y=401, width=140, height=25)
+label_string_progaming4 = Label(parent, text="String Size  : ", bg='white', fg='blue')
 label_string_progaming4.place(x=645, y=401)
-entery_progam4 = ttk.Entry(parent)
-entery_progam4.place(x=760, y=401, width=35, height=25)
-entery_progam3.bind('<Return>', on_return2)
-entery_progam4.bind('<Return>', on_return2)
-button_programing2 = Button(parent, text='Generate String')
-button_programing2.place(x=800, y=401, width=140, height=25)
+entery_p_dynamic_size2 = ttk.Entry(parent)
+entery_p_dynamic_size2.place(x=760, y=401, width=35, height=25)
+entery_p_dynamic_string2.bind('<Return>', )
+entery_p_dynamic_size2.bind('<Return>', )
+button_p_dyanamic_generator2 = Button(parent, text='Generate String',
+                                      command=lambda: generate_string_dynamic(entery_p_dynamic_string2,
+                                                                              entery_p_dynamic_size2,
+                                                                              button_p_dyanamic_generator2,
+                                                                              button_p_dynamic_rest))
+button_p_dyanamic_generator2.place(x=800, y=401, width=140, height=25)
+'''_________________________________________________________________________________________________________________'''
+label_p_dynamic5 = Label(parent, text="Click to Get a results Test :", bg='white', fg='blue')
+label_p_dynamic5.configure(font=my_font)
+label_p_dynamic5.place(x=300, y=451)
+string_p_dynamic1 = ""
+string_p_dynamic2 = ""
+string_p_dynamic_length1 = 0
+string_p_dynamic_length2 = 0
+button_p_dynamic_start = Button(parent, text='Start Test..', state=DISABLED)
+button_p_dynamic_start.place(x=550, y=451)
+button_p_dynamic_rest = Button(parent, text='Reset All..', state=DISABLED, command=lambda: reset_all_2(string_p_dynamic1, string_p_dynamic2, entery_p_dynamic_string1,button_p_dynamic_rest))
+button_p_dynamic_rest.place(x=650, y=451)
 
 ''' END OF DYNAMIC PROGRAMING PART'''
 '''_________________________________________________________________________________________________________________'''
@@ -460,7 +589,48 @@ c_box3 = Checkbutton(parent, text='Greedy Approach', variabl=greedy_approach, bg
                      font=my_font)
 c_box3.place(x=50, y=500)
 '''__________________________________________________________________________________________________________________'''
+label_string_greedy1 = Label(parent, text="Enter your 1st String", bg='white', fg='green')
+label_string_greedy1.configure(font=my_font)
+label_string_greedy1.place(x=300, y=501)
+entery_greedy_string1 = ttk.Entry(parent)
+entery_greedy_string1.place(x=500, y=501, width=140, height=25)
+'''__________________________________________________________________________________________________________________'''
+label_greedy_size1 = Label(parent, text="String Size  : ", bg='white', fg='green')
+label_greedy_size1.place(x=645, y=501)
+entery_greedy_size1 = ttk.Entry(parent)
+entery_greedy_size1.place(x=760, y=501, width=35, height=25)
+entery_greedy_size1.bind('<Return>', on_return1)
+entery_greedy_string1.bind('<Return>', on_return1)
+button_greedy_generate1 = Button(parent, text='Generate String')
+button_greedy_generate1.place(x=800, y=501, width=140, height=25)
+'''_________________________________________________________________________________________________________________'''
+label_string_greedy2 = Label(parent, text="Enter your 2nd String", bg='white', fg='green')
+label_string_greedy2.configure(font=my_font)
+label_string_greedy2.place(x=300, y=551)
+entery_greedy_string2 = ttk.Entry(parent)
+entery_greedy_string2.place(x=500, y=551, width=140, height=25)
+'''__________________________________________________________________________________________________________________'''
+label_greedy_size2 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='green')
+label_greedy_size2.place(x=645, y=551)
+entery_greedy_size2 = ttk.Entry(parent)
+entery_greedy_size2.place(x=760, y=551, width=35, height=25)
+entery_greedy_size2.bind('<Return>', on_return1)
+entery_greedy_string2.bind('<Return>', on_return1)
+button_greedy_generate2 = Button(parent, text='Generate String')
+button_greedy_generate2.place(x=800, y=551, width=140, height=25)
 
+'''__________________________________________________________________________________________________________________'''
+label_greedy_get_result = Label(parent, text="Click to Get a results Test :", bg='white', fg='green')
+label_greedy_get_result.configure(font=my_font)
+label_greedy_get_result.place(x=300, y=600)
+string_greedy1 = ""
+string_greedy2 = ""
+string_greedy_length1 = 0
+string_greedy_length2 = 0
+button_greedy_start = Button(parent, text='Start Test..', state=DISABLED)
+button_greedy_start.place(x=550, y=601)
+button_greedy_rest = Button(parent, text='Reset All..', state=DISABLED)
+button_greedy_rest.place(x=650, y=601)
 ''' END GREEDY APPROACH'''
 '''__________________________________________________________________________________________________________________'''
 ''' Starting with stripe_k'''
@@ -470,11 +640,155 @@ c_box4 = Checkbutton(parent, text='Stripe K Algorithm', variabl=stripe_k, bg='wh
                      font=my_font)
 c_box4.place(x=50, y=650)
 '''__________________________________________________________________________________________________________________'''
+label_string_stripe_k1 = Label(parent, text="Enter your 1st String", bg='white', fg='#01adcb')
+label_string_stripe_k1.configure(font=my_font)
+label_string_stripe_k1.place(x=300, y=650)
+entery_stripe_k_string1 = ttk.Entry(parent)
+entery_stripe_k_string1.place(x=500, y=650, width=140, height=25)
+'''__________________________________________________________________________________________________________________'''
+label_stripe_k_size1 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='#01adcb')
+label_stripe_k_size1.place(x=645, y=650)
+entery_stripe_k_size1 = ttk.Entry(parent)
+entery_stripe_k_size1.place(x=760, y=650, width=35, height=25)
+entery_stripe_k_size1.bind('<Return>', on_return1)
+entery_stripe_k_string1.bind('<Return>', on_return1)
+button_stripe_k_generate1 = Button(parent, text='Generate String')
+button_stripe_k_generate1.place(x=800, y=650, width=140, height=25)
+'''_________________________________________________________________________________________________________________'''
+label_string_stripe_k2 = Label(parent, text="Enter your 2nd String", bg='white', fg='#01adcb')
+label_string_stripe_k2.configure(font=my_font)
+label_string_stripe_k2.place(x=300, y=701)
+entery_stripe_k_string2 = ttk.Entry(parent)
+entery_stripe_k_string2.place(x=500, y=701, width=140, height=25)
+'''__________________________________________________________________________________________________________________'''
+label_stripe_k_size2 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='#01adcb')
+label_stripe_k_size2.place(x=645, y=701)
+entery_stripe_k_size2 = ttk.Entry(parent)
+entery_stripe_k_size2.place(x=760, y=701, width=35, height=25)
+entery_stripe_k_size2.bind('<Return>', on_return1)
+entery_stripe_k_string2.bind('<Return>', on_return1)
+button_stripe_k_generate2 = Button(parent, text='Generate String')
+button_stripe_k_generate2.place(x=800, y=701, width=140, height=25)
 
-''' END GREEDY APPROACH'''
+'''__________________________________________________________________________________________________________________'''
+label_stripe_k_get_result = Label(parent, text="Click to Get a results Test :", bg='white', fg='#01adcb')
+label_stripe_k_get_result.configure(font=my_font)
+label_stripe_k_get_result.place(x=300, y=750)
+string_stripe_k1 = ""
+string_stripe_k2 = ""
+string_stripe_k_length1 = 0
+string_stripe_k_length2 = 0
+button_stripe_k_start = Button(parent, text='Start Test..', state=DISABLED)
+button_stripe_k_start.place(x=550, y=751)
+button_stripe_k_rest = Button(parent, text='Reset All..', state=DISABLED)
+button_stripe_k_rest.place(x=650, y=751)
+''' END STRIPE K'''
+'''__________________________________________________________________________________________________________________'''
+''' Starting with DP and Devide And Conquer'''
+
+dp_devide = IntVar()
+c_box5 = Checkbutton(parent, text='Divide & Conquer', variabl=dp_devide, bg='white', fg='#ffd300',
+                     font=my_font)
+c_box5.place(x=50, y=800)
+'''__________________________________________________________________________________________________________________'''
+label_string_dp_devide1 = Label(parent, text="Enter your 1st String", bg='white', fg='#ffd300')
+label_string_dp_devide1.configure(font=my_font)
+label_string_dp_devide1.place(x=300, y=800)
+entery_dp_devide_string1 = ttk.Entry(parent)
+entery_dp_devide_string1.place(x=500, y=800, width=140, height=25)
+'''__________________________________________________________________________________________________________________'''
+label_dp_devide_size1 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='#ffd300')
+label_dp_devide_size1.place(x=645, y=800)
+entery_dp_devide_size1 = ttk.Entry(parent)
+entery_dp_devide_size1.place(x=760, y=800, width=35, height=25)
+entery_dp_devide_size1.bind('<Return>', on_return1)
+entery_dp_devide_string1.bind('<Return>', on_return1)
+button_dp_devide_generate1 = Button(parent, text='Generate String')
+button_dp_devide_generate1.place(x=800, y=800, width=140, height=25)
+'''_________________________________________________________________________________________________________________'''
+label_string_dp_devide2 = Label(parent, text="Enter your 2nd String", bg='white', fg='#ffd300')
+label_string_dp_devide2.configure(font=my_font)
+label_string_dp_devide2.place(x=300, y=851)
+entery_dp_devide_string2 = ttk.Entry(parent)
+entery_dp_devide_string2.place(x=500, y=851, width=140, height=25)
+'''__________________________________________________________________________________________________________________'''
+label_dp_devide_size2 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='#ffd300')
+label_dp_devide_size2.place(x=645, y=851)
+entery_dp_devide_size2 = ttk.Entry(parent)
+entery_dp_devide_size2.place(x=760, y=851, width=35, height=25)
+entery_dp_devide_size2.bind('<Return>', on_return1)
+entery_dp_devide_string2.bind('<Return>', on_return1)
+button_dp_devide_generate2 = Button(parent, text='Generate String')
+button_dp_devide_generate2.place(x=800, y=851, width=140, height=25)
+
+'''__________________________________________________________________________________________________________________'''
+label_dp_devide_get_result = Label(parent, text="Click to Get a results Test :", bg='white', fg='#ffd300')
+label_dp_devide_get_result.configure(font=my_font)
+label_dp_devide_get_result.place(x=300, y=900)
+string_dp_devide1 = ""
+string_dp_devide2 = ""
+string_dp_devide_length1 = 0
+string_dp_devide_length2 = 0
+button_dp_devide_start = Button(parent, text='Start Test..', state=DISABLED)
+button_dp_devide_start.place(x=550, y=901)
+button_dp_devide_rest = Button(parent, text='Reset All..', state=DISABLED)
+button_dp_devide_rest.place(x=650, y=901)
+''' END DP & DEVIDE AND CONQUER'''
+'''__________________________________________________________________________________________________________________'''
+''' Starting with  Branch and Bond'''
+
+branch_bond = IntVar()
+c_box6 = Checkbutton(parent, text=' Branch and Bond', variabl=branch_bond, bg='white', fg='#793AB4',
+                     font=my_font)
+c_box6.place(x=50, y=950)
+'''__________________________________________________________________________________________________________________'''
+label_string_branch_bond1 = Label(parent, text="Enter your 1st String", bg='white', fg='#793AB4')
+label_string_branch_bond1.configure(font=my_font)
+label_string_branch_bond1.place(x=300, y=950)
+entery_branch_bond_string1 = ttk.Entry(parent)
+entery_branch_bond_string1.place(x=500, y=950, width=140, height=25)
+'''__________________________________________________________________________________________________________________'''
+label_branch_bond_size1 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='#793AB4')
+label_branch_bond_size1.place(x=645, y=950)
+entery_branch_bond_size1 = ttk.Entry(parent)
+entery_branch_bond_size1.place(x=760, y=950, width=35, height=25)
+entery_branch_bond_size1.bind('<Return>', on_return1)
+entery_branch_bond_string1.bind('<Return>', on_return1)
+button_branch_bond_generate1 = Button(parent, text='Generate String')
+button_branch_bond_generate1.place(x=800, y=950, width=140, height=25)
+'''_________________________________________________________________________________________________________________'''
+label_string_branch_bond2 = Label(parent, text="Enter your 2nd String", bg='white', fg='#793AB4')
+label_string_branch_bond2.configure(font=my_font)
+label_string_branch_bond2.place(x=300, y=1001)
+entery_branch_bond_string2 = ttk.Entry(parent)
+entery_branch_bond_string2.place(x=500, y=1001, width=140, height=25)
+'''__________________________________________________________________________________________________________________'''
+label_branch_bond_size2 = Label(parent, text="String Size ( <=10 ) : ", bg='white', fg='#793AB4')
+label_branch_bond_size2.place(x=645, y=1001)
+entery_branch_bond_size2 = ttk.Entry(parent)
+entery_branch_bond_size2.place(x=760, y=1001, width=35, height=25)
+entery_branch_bond_size2.bind('<Return>', on_return1)
+entery_branch_bond_string2.bind('<Return>', on_return1)
+button_branch_bond_generate2 = Button(parent, text='Generate String')
+button_branch_bond_generate2.place(x=800, y=1001, width=140, height=25)
+
+'''_________________________________________________________________________________________________________'''
+label_branch_bond_get_result = Label(parent, text="Click to Get a results Test :", bg='white', fg='#793AB4')
+label_branch_bond_get_result.configure(font=my_font)
+label_branch_bond_get_result.place(x=300, y=1051)
+string_branch_bond1 = ""
+string_branch_bond2 = ""
+string_branch_bond_length1 = 0
+string_branch_bond_length2 = 0
+button_branch_bond_start = Button(parent, text='Start Test..', state=DISABLED)
+button_branch_bond_start.place(x=550, y=1051)
+button_branch_bond_rest = Button(parent, text='Reset All..', state=DISABLED)
+button_branch_bond_rest.place(x=650, y=1051)
+'''END BRANCH AND BOND'''
 '''__________________________________________________________________________________________________________________'''
 
-separator = Frame(height=3, bd=0, relief=SUNKEN)
+separator = Frame(height=3, bd=1, relief=SUNKEN)
 separator.pack(fill=X, padx=1, pady=1)
-Label(separator, text="Status Bar").pack()
+Label(separator, text="All Rights Recived 2020 University Jean Monnet - Saint Etienne 42000- France").pack()
+Label(separator, text="This program was developed by students of the University of Computer Science").pack()
 root.mainloop()
