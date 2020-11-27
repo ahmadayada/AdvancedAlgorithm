@@ -5,11 +5,12 @@ from time import time
 import tkinter.font as tkfont
 from tkinter import messagebox
 from PIL import ImageTk, Image
+
 from StringGenerator import *
 from recursive import lcs_recursive
 from dynamic import dynamic_edit_distance
 from greedy import greedy_edit_distance
-from Stripe_k import stripe_k_edit_distance
+from stripe_k import stripe_k_edit_distance
 from dp_and_dc import dynamic_devide_and_conquer_edit_distance
 from b_and_b import branch_and_bound_edit_distance
 

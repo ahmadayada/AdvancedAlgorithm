@@ -49,9 +49,9 @@ def greedy_edit_distance(string1, string2):
             minimum_edit_distance = m
             string1_alignment = string1
             string2_alignment = string2
-    print("\nstring1           : " + string1)
-    print("string1 alignment : " + string1_alignment)
-    print("final   alignment : " + string2_alignment)
+    # print("\nstring1           : " + string1)
+    # print("string1 alignment : " + string1_alignment)
+    # print("final   alignment : " + string2_alignment)
     return ('minimum operations: %3d' %(minimum_edit_distance))
 
 
