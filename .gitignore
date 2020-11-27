@@ -84,7 +84,8 @@ fabric.properties
 [Ss]cripts
 pyvenv².cfg
 
-#.venv
+
+.venv
 pip-selfcheck.json
 
 ### Python template
@@ -195,10 +196,9 @@ celerybeat.pid
 
 # Environments
 .env
-#.venv
 env/
-#venv/
-#ENV/
+venv/
+ENV/
 env.bak/
 venv.bak/
 
