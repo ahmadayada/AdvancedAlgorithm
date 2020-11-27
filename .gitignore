@@ -277,8 +277,8 @@ local.properties
 .recommenders/
 
 # Annotation Processing
-.apt_generated/
-.apt_generated_test/
+.apt_generator1d/
+.apt_generator1d_test/
 
 # Scala IDE specific (Scala & Java development for Eclipse)
 .cache-main
