@@ -160,47 +160,48 @@ def k_strip(string1, string2):
 
 # #########length of string###############
 # ##########################################
-string1 = random_protein_sequence_generator(200)
-string2 = random_protein_sequence_generator(200)
+# string1 = random_protein_sequence_generator(200)
+# string2 = random_protein_sequence_generator(200)
 ###########################################
-print('string 1 : ' + string1)
-print('string 2 : ' + string2)
-final = running(k_strip, string1, string2)
-print(final[1][1])
-print("_____________________________________________________________________________________________________________")
-print("{} {}".format("minimum edit distance :", int(final[1][0])))
-print("run time              : %s seconds" % final[0])
-
-run = []
-size = [50, 100, 150, 175, 200]
-s1 = random_protein_sequence_generator(50)
-s2 = random_protein_sequence_generator(50)
-final0 = running(k_strip, s1, s2)
-run.append(final0[0])
-
-s1 = random_protein_sequence_generator(100)
-s2 = random_protein_sequence_generator(100)
-final0 = running(k_strip, s1, s2)
-run.append(final0[0])
-
-s1 = random_protein_sequence_generator(150)
-s2 = random_protein_sequence_generator(150)
-final0 = running(k_strip, s1, s2)
-run.append(final0[0])
-s1 = random_protein_sequence_generator(175)
-s2 = random_protein_sequence_generator(175)
-final0 = running(k_strip, s1, s2)
-run.append(final0[0])
-s1 = random_protein_sequence_generator(200)
-s2 = random_protein_sequence_generator(200)
-final0 = running(k_strip, s1, s2)
-run.append(final0[0])
-
-plt.plot(size, run, linestyle='dashed')
-plt.title('Stripe K')
-plt.xlabel('sequence size', color='b')
-plt.ylabel('time (sec)', color='b')
-plt.show()
+# print('string 1 : ' + string1)
+# print('string 2 : ' + string2)
+# final = running(k_strip, string1, string2)
+# print(final[1][1])
+# print("_____________________________________________________________________________________________________________")
+# print("{} {}".format("minimum edit distance :", int(final[1][0])))
+# print("run time              : %s seconds" % final[0])
+#
+# run = []
+# size = [50, 100, 150, 175, 200]
+# s1 = random_protein_sequence_generator(50)
+# s2 = random_protein_sequence_generator(50)
+# final0 = running(k_strip, s1, s2)
+# run.append(final0[0])
+# print(final0)
+#
+# s1 = random_protein_sequence_generator(100)
+# s2 = random_protein_sequence_generator(100)
+# final0 = running(k_strip, s1, s2)
+# run.append(final0[0])
+#
+# s1 = random_protein_sequence_generator(150)
+# s2 = random_protein_sequence_generator(150)
+# final0 = running(k_strip, s1, s2)
+# run.append(final0[0])
+# s1 = random_protein_sequence_generator(175)
+# s2 = random_protein_sequence_generator(175)
+# final0 = running(k_strip, s1, s2)
+# run.append(final0[0])
+# s1 = random_protein_sequence_generator(200)
+# s2 = random_protein_sequence_generator(200)
+# final0 = running(k_strip, s1, s2)
+# run.append(final0[0])
+#
+# plt.plot(size, run, linestyle='dashed')
+# plt.title('Stripe K')
+# plt.xlabel('sequence size', color='b')
+# plt.ylabel('time (sec)', color='b')
+# plt.show()
 
 '''_______________________________________________________________________________________________________'''
 

@@ -1,18 +1,55 @@
-from tkinter import *
+import os
+from datetime import datetime
 from random import randrange
-from tkinter import ttk
-from time import time
-import tkinter.font as tkfont
-from tkinter import messagebox
-from PIL import ImageTk, Image
 
-from StringGenerator import *
-from recursive import lcs_recursive
-from dynamic import dynamic_edit_distance
-from greedy import greedy_edit_distance
-from stripe_k import stripe_k_edit_distance
-from dp_and_dc import dynamic_devide_and_conquer_edit_distance
-from b_and_b import branch_and_bound_edit_distance
+try:
+    from tkinter import *
+    from tkinter import ttk, messagebox
+    import tkinter.font as tkfont
+except ImportError as error:
+    os.system('pip install tkinter')
+    from tkinter import *
+    from tkinter import ttk, messagebox
+    import tkinter.font as tkfont
+except Exception as exception:
+    print("Un Expeted error,Can't import tkinter")
+
+try:
+    from PIL import ImageTk, Image
+except ImportError as error:
+    os.system('pip install --upgrade Pillow')
+except Exception as exception:
+    print("Un Expeted error,Can't import Pillow Image ")
+
+try:
+    import numpy as np
+
+except ImportError as error:
+    os.system('pip install numpy')
+    import numpy as np
+except Exception as exception:
+    print("Un Expeted error,Can't import numpy as np ")
+
+try:
+    from matplotlib import pyplot as plt
+except ImportError as error:
+    os.system('pip install matplotlib')
+    from matplotlib import pyplot as plt
+except Exception as exception:
+    print("Un Expeted error,Can't  import matplotlib import pyplot as plt ")
+
+try:
+    from StringGenerator import *
+    from recursive import lcs_recursive
+    from dynamic import dynamic_edit_distance
+    from greedy import greedy_edit_distance
+    from stripe_k import *
+    from dp_and_dc import dynamic_devide_and_conquer_edit_distance
+    from b_and_b import branch_and_bound_edit_distance
+except ImportError as error:
+    print("Missing Algorith file ")
+
+
 
 root = Tk()
 sizex = 1200
@@ -31,7 +68,12 @@ root.wm_iconbitmap('./img/Search.ico')
 root.wm_geometry("%dx%d+%d+%d" % (sizex, sizey, posx, posy))
 
 '''_________________________________________________________________________________________________________________'''
-
+stripe_k_DataList = []
+recursive_DataList = []
+p_Programming_DataList = []
+dp_and_dc_DataList = []
+greedy_DataList = []
+b_and_b_DataList = []
 
 def hello():
     print(hello)
@@ -327,6 +369,33 @@ def reset_all(e1, e2, e3, e4, b1, b2):
     # fin method reset_all
 
 
+# Run methode showing Graphe
+def pure_recursive_graph():
+    global recursive_DataList
+    dev_x = []
+    dev_y = []
+
+
+    size = [4, 4,5,5, 6,6, 7,7, 8,8, 9,9,10,10]
+    for x in size:
+        i=0;
+        s1 = random_protein_sequence_generator(int(x))
+        s2 = random_protein_sequence_generator(int(x))
+        dev_x.append(int(x))
+        start_time = datetime.now()
+        min_operations = lcs_recursive(s1, s2)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y.append(my_time.microseconds)
+
+    plt.plot(dev_x,dev_y)
+    plt.title('Pure Recursive Algorithm')
+    plt.xlabel('sequence size', color='b')
+    plt.ylabel('time (sec)', color='b')
+    plt.show()
+
+
+
 # Run Pure Rcursive in other windows
 def run_pure_recursive(string1, string2):
     global button3_rec_gen
@@ -335,7 +404,7 @@ def run_pure_recursive(string1, string2):
     top2 = Toplevel()
     top2.wm_iconbitmap('./img/Halloween.ico')
     top2.title("Pure Recursive Results")
-    top2.geometry("400x200+170+150")
+    top2.geometry("400x400+170+150")
     font2 = tkfont.Font(family="Times New Roman", size=16, weight="bold")
     label_frame2 = LabelFrame(top2, text="The Algorithm Results:", padx=2, pady=2)
     label_frame2.configure(font=font2)
@@ -355,15 +424,22 @@ def run_pure_recursive(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = time()
+    start_time = datetime.now()
     min_operations = lcs_recursive(string1, string2)
-    end_time = time()
-    my_time = '%3f seconds' % (end_time - start_time)
+    end_time = datetime.now()
+    my_time = (end_time - start_time)
     label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations),
                                                                       str(my_time)), padx=2, pady=2)
     label3.configure(font=font2)
     label3.pack(fill=BOTH, expand=1)
+
+    label4 = Label(label_frame2, text="Random Protein Sequence generator", padx=1, pady=1, fg="blue")
+    label4.pack(fill=BOTH, expand=1)
+
+    button2 = Button(label_frame2, text="Generate Random", bg='#0052cc', fg='#ffffff',
+                     command=lambda: pure_recursive_graph(), padx=1, pady=1)
+    button2.pack(padx=1, pady=1)
 
     button3_rec_gen.config(state=ACTIVE)
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
@@ -448,7 +524,7 @@ def generate_string_dynamic(string_entery, size_entery, generator_button, reset_
             reset_button.config(state=ACTIVE)
             return
         else:
-            if test_entery_int2(size_entery, 10, 20) == 1:
+            if test_entery_int2(size_entery, 10, 200) == 1:
                 my_longer = int(size_entery.get())
                 my_random_string = random_string(chars=string.ascii_uppercase, longer=my_longer)
                 if len(string_p_dynamic1) == 0:
@@ -483,7 +559,7 @@ def generate_string_dynamic(string_entery, size_entery, generator_button, reset_
             reset_button.config(state=ACTIVE)
             return
         else:
-            if test_entery_int2(size_entery, 10, 20) == 1:
+            if test_entery_int2(size_entery, 10, 200) == 1:
                 if p_dynamic_controll < 2:
                     p_dynamic_controll += 1
                     button_p_dynamic_start.config(state=ACTIVE)
@@ -541,6 +617,30 @@ def reset_all_p_dynamic(*event):
     button_p_dynamic_start.config(state=DISABLED)
     # fin Method reset_all_p_dynamic
 
+def p_programming_graph():
+    dev_x = []
+    dev_y = []
+
+    size = [50,60, 80, 90,98,100, 115,130, 140, 150, 175, 180, 190,200]
+    for x in size:
+
+        string1 = random_protein_sequence_generator(int(x))
+        string2 = random_protein_sequence_generator(int(x))
+        dev_x.append(int(x))
+        start_time = datetime.now()
+        min_operations = dynamic_edit_distance(string1, string2)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y.append(my_time.microseconds)
+
+    plt.plot(dev_x, dev_y)
+    plt.title('Pure Dynamic Algorithm')
+    plt.xlabel('sequence size', color='b')
+    plt.ylabel('time (sec)', color='b')
+    plt.show()
+
+
+
 
 # Run Algorithm Programming Dynamic in other windows
 def run_p_programming(string1, string2):
@@ -549,7 +649,7 @@ def run_p_programming(string1, string2):
     top2 = Toplevel()
     top2.wm_iconbitmap('./img/Cat-Fish.ico')
     top2.title("Dynamic Programing Results")
-    top2.geometry("500x300+170+150")
+    top2.geometry("500x500+170+150")
 
     global button_p_dynamic_start
     str_len1 = len(string1)
@@ -575,17 +675,26 @@ def run_p_programming(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = time()
+    start_time = datetime.now()
     min_operations = dynamic_edit_distance(string1, string2)
-    end_time = time()
-    my_time = '%3f seconds' % (end_time - start_time)
+    end_time = datetime.now()
+    my_time = (end_time - start_time)
     label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations),
                                                                       str(my_time)), padx=2, pady=2, fg="blue")
     label3.configure(font=font2)
     label3.pack(fill=BOTH, expand=1)
-
     button_p_dynamic_start.config(state=ACTIVE)
+
+    font3 = tkfont.Font(family="Times New Roman", size=16, weight="normal", underline="False")
+
+    label4 = Label(label_frame2, text="Random Protein Sequence generator", padx=1, pady=1, fg="blue")
+
+    label4.pack(fill=BOTH, expand=1)
+
+    button2 = Button(label_frame2, text="Generate Random",  bg='#0052cc', fg='#ffffff', command= lambda: p_programming_graph(), padx=1, pady=1)
+    button2.pack(padx=1, pady=1)
+
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
     button.pack(padx=1, pady=1)
     # END INERFACE GUI INSERTION TO STRING'''
@@ -749,6 +858,29 @@ def reset_all_greedy(*event):
     # fin Method reset_all_greedy
 
 
+
+def greedy_graph():
+    dev_x = []
+    dev_y = []
+
+    size = [4, 5, 6,6, 7, 8, 8, 9, 10, 10]
+    for x in size:
+
+        string1 = random_protein_sequence_generator(int(x))
+        string2 = random_protein_sequence_generator(int(x))
+        dev_x.append(int(x))
+        start_time = datetime.now()
+        min_operations = greedy_edit_distance(string1, string2)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y.append(my_time.microseconds)
+
+    plt.plot(dev_x, dev_y)
+    plt.title('Greedy Algorithm')
+    plt.xlabel('sequence size', color='b')
+    plt.ylabel('time (sec)', color='b')
+    plt.show()
+
 # Run Algorithm Programming Greedy in other windows
 def run_greedy(string1, string2):
     global button3_rec_gen
@@ -756,7 +888,7 @@ def run_greedy(string1, string2):
     top2 = Toplevel()
     top2.wm_iconbitmap('./img/Smurf-Greedy.ico')
     top2.title("Greedy Programing Results")
-    top2.geometry("500x300+170+150")
+    top2.geometry("500x450+170+150")
 
     global button_greedy_start
     str_len1 = len(string1)
@@ -782,15 +914,22 @@ def run_greedy(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = time()
+    start_time = datetime.now()
     min_operations = greedy_edit_distance(string1, string2)
-    end_time = time()
-    my_time = '%3f seconds' % (end_time - start_time)
+    end_time = datetime.now()
+    my_time = (end_time - start_time)
     label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations),
                                                                       str(my_time)), padx=2, pady=2, fg="green")
     label3.configure(font=font2)
     label3.pack(fill=BOTH, expand=1)
+
+    label4 = Label(label_frame2, text="Random Protein Sequence generator", padx=1, pady=1, fg="blue")
+    label4.pack(fill=BOTH, expand=1)
+
+    button2 = Button(label_frame2, text="Generate Random", bg='#0052cc', fg='#ffffff',
+                     command=lambda: greedy_graph(), padx=1, pady=1)
+    button2.pack(padx=1, pady=1)
 
     button_greedy_start.config(state=ACTIVE)
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
@@ -856,7 +995,7 @@ def generate_string_stripe_k(string_entery, size_entery, generator_button, reset
             reset_button.config(state=ACTIVE)
             return
         else:
-            if test_entery_int2(size_entery, 10, 20) == 1:
+            if test_entery_int2(size_entery, 10, 200) == 1:
                 my_longer = int(size_entery.get())
                 my_random_string = random_string(chars=string.ascii_uppercase, longer=my_longer)
                 if len(string_stripe_k1) == 0:
@@ -891,7 +1030,7 @@ def generate_string_stripe_k(string_entery, size_entery, generator_button, reset
             reset_button.config(state=ACTIVE)
             return
         else:
-            if test_entery_int2(size_entery, 10, 20) == 1:
+            if test_entery_int2(size_entery, 10, 200) == 1:
                 if stripe_k_controll < 2:
                     stripe_k_controll += 1
                     button_stripe_k_start.config(state=ACTIVE)
@@ -950,6 +1089,40 @@ def reset_all_stripe_k(*event):
     # fin Method reset_all_stripe_k
 
 
+
+# generate Graphe stripe k
+def p_stripe_k_graph():
+    run = []
+    size = [50, 100, 150, 175, 200]
+    s1 = random_protein_sequence_generator(50)
+    s2 = random_protein_sequence_generator(50)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+
+    s1 = random_protein_sequence_generator(100)
+    s2 = random_protein_sequence_generator(100)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+    s1 = random_protein_sequence_generator(150)
+    s2 = random_protein_sequence_generator(150)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+    s1 = random_protein_sequence_generator(175)
+    s2 = random_protein_sequence_generator(175)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+    s1 = random_protein_sequence_generator(200)
+    s2 = random_protein_sequence_generator(200)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+
+    plt.plot(size, run, linestyle='dashed')
+    plt.title('Stripe K')
+    plt.xlabel('sequence size', color='b')
+    plt.ylabel('time (sec)', color='b')
+    plt.show()
+
+
 # Run Algorithm Programming stripe_k in other windows
 def run_stripe_k(string1, string2):
     global button3_rec_gen
@@ -957,11 +1130,13 @@ def run_stripe_k(string1, string2):
     top2 = Toplevel()
     top2.wm_iconbitmap('./img/Cubes-Box-09-Stripes.ico')
     top2.title("Stripe k  Results")
-    top2.geometry("500x300+170+150")
+    top2.geometry("500x500+170+150")
 
     global button_stripe_k_start
     str_len1 = len(string1)
     str_len2 = len(string2)
+    final = running(k_strip, string1, string2)
+
 
     font2 = tkfont.Font(family="Times New Roman", size=20, weight="bold")
 
@@ -983,15 +1158,26 @@ def run_stripe_k(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = time()
-    min_operations = stripe_k_edit_distance(string1, string2)
-    end_time = time()
-    my_time = '%3f seconds' % (end_time - start_time)
-    label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
-                                      " : {0}\nRun Time : {1}".format(str(min_operations),
+    start_time = datetime.now()
+
+    min_operations = final
+    #end_time = datetime.now()
+    my_time = final[0]
+    label3 = Label(label_frame2, text="Result : Minimum Edit Distance" +
+                                      " : {0}\nRun Time : {1}".format(str(min_operations[1][0]),
                                                                       str(my_time)), padx=2, pady=2, fg="#01adcb")
     label3.configure(font=font2)
     label3.pack(fill=BOTH, expand=1)
+
+    font3 = tkfont.Font(family="Times New Roman", size=16, weight="normal", underline="False")
+
+    label4 = Label(label_frame2, text="Random Protein Sequence generator", padx=1, pady=1, fg="blue")
+
+    label4.pack(fill=BOTH, expand=1)
+
+    button2 = Button(label_frame2, text="Generate Random", bg='#0052cc', fg='#ffffff',
+                     command=lambda: p_stripe_k_graph(), padx=1, pady=1)
+    button2.pack(padx=1, pady=1)
 
     button_stripe_k_start.config(state=ACTIVE)
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
@@ -1056,7 +1242,7 @@ def generate_string_dp_devide(string_entery, size_entery, generator_button, rese
             reset_button.config(state=ACTIVE)
             return
         else:
-            if test_entery_int2(size_entery, 10, 20) == 1:
+            if test_entery_int2(size_entery, 10, 200) == 1:
                 my_longer = int(size_entery.get())
                 my_random_string = random_string(chars=string.ascii_uppercase, longer=my_longer)
                 if len(string_dp_devide1) == 0:
@@ -1091,7 +1277,7 @@ def generate_string_dp_devide(string_entery, size_entery, generator_button, rese
             reset_button.config(state=ACTIVE)
             return
         else:
-            if test_entery_int2(size_entery, 10, 20) == 1:
+            if test_entery_int2(size_entery, 10, 200) == 1:
                 if dp_devide_controll < 2:
                     dp_devide_controll += 1
                     button_dp_devide_start.config(state=ACTIVE)
@@ -1150,6 +1336,27 @@ def reset_all_dp_devide(*event):
     # fin Method reset_all_dp_devide
 
 
+def devide_graph():
+    dev_x = []
+    dev_y = []
+
+    size = [50, 66, 77 ,80, 100, 115, 120, 125, 130, 145 ,150, 175, 180, 190, 195, 200]
+    for x in size:
+        string1 = random_protein_sequence_generator(int(x))
+        string2 = random_protein_sequence_generator(int(x))
+        dev_x.append(int(x))
+        start_time = datetime.now()
+        min_operations = dynamic_devide_and_conquer_edit_distance(string1, string2)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y.append(my_time.microseconds)
+
+    plt.plot(dev_x, dev_y)
+    plt.title('Devide And Conqeur Algorithm')
+    plt.xlabel('sequence size', color='b')
+    plt.ylabel('time (sec)', color='b')
+    plt.show()
+
 # Run Algorithm Programming dp_devide in other windows
 def run_dp_devide(string1, string2):
     global button3_rec_gen
@@ -1157,7 +1364,7 @@ def run_dp_devide(string1, string2):
     top2 = Toplevel(bg='black')
     top2.wm_iconbitmap('./img/Dev.ico')
     top2.title("DP & Devide & Conquer  Results")
-    top2.geometry("500x300+170+150")
+    top2.geometry("500x450+170+150")
 
     global button_dp_devide_start
     str_len1 = len(string1)
@@ -1183,16 +1390,23 @@ def run_dp_devide(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = time()
+    start_time = datetime.now()
     min_operations = dynamic_devide_and_conquer_edit_distance(string1, string2)
-    end_time = time()
-    my_time = '%3f seconds' % (end_time - start_time)
+    end_time = datetime.now()
+    my_time = (end_time - start_time)
     label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations),
                                                                       str(my_time)), padx=2, pady=2,
                    bg="#4B3F66", fg="orange")
     label3.configure(font=font2)
     label3.pack(fill=BOTH, expand=1)
+
+    label4 = Label(label_frame2, text="Random Protein Sequence generator", padx=1, pady=1, fg="blue")
+    label4.pack(fill=BOTH, expand=1)
+
+    button2 = Button(label_frame2, text="Generate Random", bg='#0052cc', fg='#ffffff',
+                     command=lambda: devide_graph(), padx=1, pady=1)
+    button2.pack(padx=1, pady=1)
 
     button_dp_devide_start.config(state=ACTIVE)
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
@@ -1351,8 +1565,33 @@ def reset_all_branch_bond(*event):
     button_branch_bond_start.config(state=DISABLED)
     # fin Method reset_all_branch_bond
 
+def branch_bond_graph():
+    dev_x = []
+    dev_y = []
 
+    size = [4, 4, 5, 5, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    for x in size:
+        cost = 0
+
+        string1 = random_protein_sequence_generator(int(x))
+        string2 = random_protein_sequence_generator(int(x))
+        bound = max(len(string1), len(string2))
+        dev_x.append(int(x))
+        start_time = datetime.now()
+        min_operations, a1, a2 = branch_and_bound_edit_distance(string1, string2, cost, bound)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y.append(my_time.microseconds)
+
+    plt.plot(dev_x, dev_y)
+    plt.title('Branch And Bond Algorithm')
+    plt.xlabel('sequence size', color='b')
+    plt.ylabel('time (sec)', color='b')
+    plt.show()
 # Run Algorithm Programming branch_bond in other windows
+
+
+
 def run_branch_bond(string1, string2):
     global button3_rec_gen
 
@@ -1387,10 +1626,10 @@ def run_branch_bond(string1, string2):
 
     cost = 0
     bound = max(len(string1), len(string2))
-    start_time = time()
+    start_time = datetime.now()
     min_operations, a1, a2 = branch_and_bound_edit_distance(string1, string2, cost, bound)
-    end_time = time()
-    my_time = '%3f seconds' % (end_time - start_time)
+    end_time = datetime.now()
+    my_time = (end_time - start_time)
     label3 = Label(label_frame2, text='Initial alignment     : ' + str(a2),  fg='#793AB4')
     label3.configure(font=font2)
     label3.pack(fill=BOTH, expand=1)
@@ -1404,6 +1643,14 @@ def run_branch_bond(string1, string2):
                                                                       str(my_time)), fg="#793AB4")
     label5.configure(font=font2)
     label5.pack(fill=BOTH, expand=1)
+
+    label6 = Label(label_frame2, text="Random Protein Sequence generator", padx=1, pady=1, fg="blue")
+
+    label6.pack(fill=BOTH, expand=1)
+
+    button2 = Button(label_frame2, text="Generate Random", bg='#0052cc', fg='#ffffff',
+                     command=lambda: branch_bond_graph(), padx=1, pady=1)
+    button2.pack(padx=1, pady=1)
 
     button_branch_bond_start.config(state=ACTIVE)
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
