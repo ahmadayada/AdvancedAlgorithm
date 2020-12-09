@@ -75,6 +75,8 @@ dp_and_dc_DataList = []
 greedy_DataList = []
 b_and_b_DataList = []
 
+
+
 def hello():
     print(hello)
 
@@ -201,6 +203,130 @@ title_label.place(x=50, y=150)
 #############################################
 #       NXET LEVEL                          #
 #############################################
+
+# generate graphe for all algorithms
+def all_graph():
+    global recursive_DataList
+    dev_x1 = []
+    dev_y1 = []
+
+    size = [4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    for x in size:
+        i = 0;
+        s1 = random_protein_sequence_generator(int(x))
+        s2 = random_protein_sequence_generator(int(x))
+        dev_x1.append(int(x))
+        start_time = datetime.now()
+        min_operations = lcs_recursive(s1, s2)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y1.append(my_time.microseconds)
+    plt.plot(dev_x1, dev_y1)
+    '''________________________________'''
+    dev_x2 = []
+    dev_y2 = []
+    size = [50, 60, 80, 90, 98, 100, 115, 130, 140, 150, 175, 180, 190, 200]
+    for x in size:
+        string1 = random_protein_sequence_generator(int(x))
+        string2 = random_protein_sequence_generator(int(x))
+        dev_x2.append(int(x))
+        start_time = datetime.now()
+        min_operations = dynamic_edit_distance(string1, string2)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y2.append(my_time.microseconds)
+    plt.plot(dev_x2, dev_y2)
+    '''________________________________'''
+    dev_x3 = []
+    dev_y3 = []
+
+    size = [4, 5, 6, 6, 7, 8, 8, 9, 10, 10]
+    for x in size:
+        string1 = random_protein_sequence_generator(int(x))
+        string2 = random_protein_sequence_generator(int(x))
+        dev_x3.append(int(x))
+        start_time = datetime.now()
+        min_operations = greedy_edit_distance(string1, string2)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y3.append(my_time.microseconds)
+
+    plt.plot(dev_x3, dev_y3)
+    '''________________________________'''
+    dev_x4 = []
+    dev_y4 = []
+
+    size = [50, 66, 77, 80, 100, 115, 120, 125, 130, 145, 150, 175, 180, 190, 195, 200]
+    for x in size:
+        string1 = random_protein_sequence_generator(int(x))
+        string2 = random_protein_sequence_generator(int(x))
+        dev_x4.append(int(x))
+        start_time = datetime.now()
+        min_operations = dynamic_devide_and_conquer_edit_distance(string1, string2)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y4.append(my_time.microseconds)
+
+    plt.plot(dev_x4, dev_y4)
+    '''________________________________'''
+    dev_x5 = []
+    dev_y5 = []
+
+    size = [4, 4, 5, 5, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    for x in size:
+        cost = 0
+
+        string1 = random_protein_sequence_generator(int(x))
+        string2 = random_protein_sequence_generator(int(x))
+        bound = max(len(string1), len(string2))
+        dev_x5.append(int(x))
+        start_time = datetime.now()
+        min_operations, a1, a2 = branch_and_bound_edit_distance(string1, string2, cost, bound)
+        end_time = datetime.now()
+        my_time = (end_time - start_time)
+        dev_y5.append(my_time.microseconds)
+
+    plt.plot(dev_x5, dev_y5)
+
+    '''________________________________'''
+
+    run = []
+    size = [50, 100, 150, 175, 200]
+    s1 = random_protein_sequence_generator(50)
+    s2 = random_protein_sequence_generator(50)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+
+    s1 = random_protein_sequence_generator(100)
+    s2 = random_protein_sequence_generator(100)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+    s1 = random_protein_sequence_generator(150)
+    s2 = random_protein_sequence_generator(150)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+    s1 = random_protein_sequence_generator(175)
+    s2 = random_protein_sequence_generator(175)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+    s1 = random_protein_sequence_generator(200)
+    s2 = random_protein_sequence_generator(200)
+    final0 = running(k_strip, s1, s2)
+    run.append(final0[0])
+
+    plt.plot(size, run, linestyle='dashed')
+
+
+    #plt.legend(['Pure Recursive','Pure Dynamic Program.','Greedy Approche Algorithm','Devide & Conquer Alg.','Branch And Bound Algo.'])
+    plt.legend(['Pure Recursive','Pure Dynamic Program.','Greedy Approche Algorithm','Devide & Conquer Alg.','Branch And Bound Algo.','Stripe K Algo.'])
+
+    plt.title('Pure Recursive Algorithm')
+    plt.xlabel('sequence size', color='b')
+    plt.ylabel('time (sec)', color='b')
+    plt.show()
+
+
+
 '''_________________________________________________________________________________________________________________'''
 ############################################
 # Begin of methods of Algorithm Recursive  #
@@ -2048,8 +2174,14 @@ button_branch_bond_start.place(x=550, y=1051)
 button_branch_bond_rest = Button(parent, text='Reset All..', state=DISABLED, command=lambda: reset_all_branch_bond())
 button_branch_bond_rest.configure(fg='#793AB4')
 button_branch_bond_rest.place(x=650, y=1051)
+
+
+
 '''END BRANCH AND BOND'''
 '''__________________________________________________________________________________________________________________'''
+button_finall = Button(parent, text="Generate Random For All", bg='#0052cc', fg='#ffffff',
+                     command=lambda: all_graph(), padx=2, pady=2)
+button_finall.place(x=800, y=1150);
 
 separator = Frame(height=3, bd=1, relief=SUNKEN)
 separator.pack(fill=X, padx=1, pady=1)
