@@ -320,7 +320,7 @@ def all_graph():
     #plt.legend(['Pure Recursive','Pure Dynamic Program.','Greedy Approche Algorithm','Devide & Conquer Alg.','Branch And Bound Algo.'])
     plt.legend(['Pure Recursive','Pure Dynamic Program.','Greedy Approche Algorithm','Devide & Conquer Alg.','Branch And Bound Algo.','Stripe K Algo.'])
 
-    plt.title('Pure Recursive Algorithm')
+    plt.title('All Algorithm')
     plt.xlabel('sequence size', color='b')
     plt.ylabel('time (sec)', color='b')
     plt.show()
