@@ -216,11 +216,11 @@ def all_graph():
         s1 = random_protein_sequence_generator(int(x))
         s2 = random_protein_sequence_generator(int(x))
         dev_x1.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations = lcs_recursive(s1, s2)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y1.append(my_time.microseconds)
+        dev_y1.append(my_time)
     plt.plot(dev_x1, dev_y1)
     '''________________________________'''
     dev_x2 = []
@@ -230,11 +230,11 @@ def all_graph():
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
         dev_x2.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations = dynamic_edit_distance(string1, string2)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y2.append(my_time.microseconds)
+        dev_y2.append(my_time)
     plt.plot(dev_x2, dev_y2)
     '''________________________________'''
     dev_x3 = []
@@ -245,11 +245,11 @@ def all_graph():
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
         dev_x3.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations = greedy_edit_distance(string1, string2)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y3.append(my_time.microseconds)
+        dev_y3.append(my_time)
 
     plt.plot(dev_x3, dev_y3)
     '''________________________________'''
@@ -261,11 +261,11 @@ def all_graph():
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
         dev_x4.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations = dynamic_devide_and_conquer_edit_distance(string1, string2)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y4.append(my_time.microseconds)
+        dev_y4.append(my_time)
 
     plt.plot(dev_x4, dev_y4)
     '''________________________________'''
@@ -280,11 +280,11 @@ def all_graph():
         string2 = random_protein_sequence_generator(int(x))
         bound = max(len(string1), len(string2))
         dev_x5.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations, a1, a2 = branch_and_bound_edit_distance(string1, string2, cost, bound)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y5.append(my_time.microseconds)
+        dev_y5.append(my_time)
 
     plt.plot(dev_x5, dev_y5)
 
@@ -508,11 +508,11 @@ def pure_recursive_graph():
         s1 = random_protein_sequence_generator(int(x))
         s2 = random_protein_sequence_generator(int(x))
         dev_x.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations = lcs_recursive(s1, s2)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y.append(my_time.microseconds)
+        dev_y.append(my_time)
 
     plt.plot(dev_x,dev_y)
     plt.title('Pure Recursive Algorithm')
@@ -550,9 +550,9 @@ def run_pure_recursive(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = datetime.now()
+    start_time = time.time()
     min_operations = lcs_recursive(string1, string2)
-    end_time = datetime.now()
+    end_time = time.time()
     my_time = (end_time - start_time)
     label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations),
@@ -747,17 +747,17 @@ def p_programming_graph():
     dev_x = []
     dev_y = []
 
-    size = [50,60, 80, 90,98,100, 115,130, 140, 150, 175, 180, 190,200]
+    size = [50, 60, 80, 90, 98, 100, 115, 130, 140, 150, 175, 180, 190, 200]
     for x in size:
 
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
         dev_x.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations = dynamic_edit_distance(string1, string2)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y.append(my_time.microseconds)
+        dev_y.append(my_time)
 
     plt.plot(dev_x, dev_y)
     plt.title('Pure Dynamic Algorithm')
@@ -801,9 +801,9 @@ def run_p_programming(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = datetime.now()
+    start_time = time.time()
     min_operations = dynamic_edit_distance(string1, string2)
-    end_time = datetime.now()
+    end_time = time.time()
     my_time = (end_time - start_time)
     label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations),
@@ -989,17 +989,17 @@ def greedy_graph():
     dev_x = []
     dev_y = []
 
-    size = [4, 5, 6,6, 7, 8, 8, 9, 10, 10]
+    size = [4, 4, 5, 5, 6,6 ,7, 7, 8, 8, 9, 10, 10,10]
     for x in size:
 
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
         dev_x.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations = greedy_edit_distance(string1, string2)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y.append(my_time.microseconds)
+        dev_y.append(my_time)
 
     plt.plot(dev_x, dev_y)
     plt.title('Greedy Algorithm')
@@ -1040,9 +1040,9 @@ def run_greedy(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = datetime.now()
+    start_time = time.time()
     min_operations = greedy_edit_distance(string1, string2)
-    end_time = datetime.now()
+    end_time = time.time()
     my_time = (end_time - start_time)
     label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations),
@@ -1284,10 +1284,10 @@ def run_stripe_k(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = datetime.now()
+    start_time = time.time()
 
     min_operations = final
-    #end_time = datetime.now()
+    #end_time = time.time()
     my_time = final[0]
     label3 = Label(label_frame2, text="Result : Minimum Edit Distance" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations[1][0]),
@@ -1471,11 +1471,11 @@ def devide_graph():
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
         dev_x.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations = dynamic_devide_and_conquer_edit_distance(string1, string2)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y.append(my_time.microseconds)
+        dev_y.append(my_time)
 
     plt.plot(dev_x, dev_y)
     plt.title('Devide And Conqeur Algorithm')
@@ -1516,9 +1516,9 @@ def run_dp_devide(string1, string2):
 
     font2 = tkfont.Font(family="Times New Roman", size=12, weight="normal", underline="True")
 
-    start_time = datetime.now()
+    start_time = time.time()
     min_operations = dynamic_devide_and_conquer_edit_distance(string1, string2)
-    end_time = datetime.now()
+    end_time = time.time()
     my_time = (end_time - start_time)
     label3 = Label(label_frame2, text="Result : Minimum Operation(s)" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations),
@@ -1703,11 +1703,11 @@ def branch_bond_graph():
         string2 = random_protein_sequence_generator(int(x))
         bound = max(len(string1), len(string2))
         dev_x.append(int(x))
-        start_time = datetime.now()
+        start_time = time.time()
         min_operations, a1, a2 = branch_and_bound_edit_distance(string1, string2, cost, bound)
-        end_time = datetime.now()
+        end_time = time.time()
         my_time = (end_time - start_time)
-        dev_y.append(my_time.microseconds)
+        dev_y.append(my_time)
 
     plt.plot(dev_x, dev_y)
     plt.title('Branch And Bond Algorithm')
@@ -1752,9 +1752,9 @@ def run_branch_bond(string1, string2):
 
     cost = 0
     bound = max(len(string1), len(string2))
-    start_time = datetime.now()
+    start_time = time.time()
     min_operations, a1, a2 = branch_and_bound_edit_distance(string1, string2, cost, bound)
-    end_time = datetime.now()
+    end_time = time.time()
     my_time = (end_time - start_time)
     label3 = Label(label_frame2, text='Initial alignment     : ' + str(a2),  fg='#793AB4')
     label3.configure(font=font2)

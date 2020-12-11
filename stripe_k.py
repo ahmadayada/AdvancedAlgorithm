@@ -162,7 +162,8 @@ def k_strip(string1, string2):
 # ##########################################
 # string1 = random_protein_sequence_generator(200)
 # string2 = random_protein_sequence_generator(200)
-###########################################
+#
+ ###########################################
 # print('string 1 : ' + string1)
 # print('string 2 : ' + string2)
 # final = running(k_strip, string1, string2)
@@ -170,7 +171,7 @@ def k_strip(string1, string2):
 # print("_____________________________________________________________________________________________________________")
 # print("{} {}".format("minimum edit distance :", int(final[1][0])))
 # print("run time              : %s seconds" % final[0])
-#
+# #
 # run = []
 # size = [50, 100, 150, 175, 200]
 # s1 = random_protein_sequence_generator(50)
@@ -186,7 +187,7 @@ def k_strip(string1, string2):
 #
 # s1 = random_protein_sequence_generator(150)
 # s2 = random_protein_sequence_generator(150)
-# final0 = running(k_strip, s1, s2)
+# inal0 = running(k_strip, s1, s2)
 # run.append(final0[0])
 # s1 = random_protein_sequence_generator(175)
 # s2 = random_protein_sequence_generator(175)
@@ -205,5 +206,3 @@ def k_strip(string1, string2):
 
 '''_______________________________________________________________________________________________________'''
 
-# def stripe_k_edit_distance(string1, string2):
-#    return 100000000000000000000000000000000000
