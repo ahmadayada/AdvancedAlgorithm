@@ -389,7 +389,7 @@ def set_text_entrey(entrery1, entrery2, button):
             entrery1.insert(0, text)
             entrery2.delete(0, END)
             my_long = len(text)
-            entrery2.insert(0, my_long)
+            entrery2.insert(0, str(my_long))
             if len(string_rec1) == 0:
                 string_rec1 = text
                 string_rec_len1 = my_long
@@ -409,7 +409,6 @@ def set_text_entrey(entrery1, entrery2, button):
                 text = random_string(chars=string.ascii_uppercase, longer=number)
                 if recursive_controll < 2:
                     recursive_controll += 1
-                    button4_rec_gen.config(state=ACTIVE)
                 entrery1.delete(0, END)
                 entrery1.insert(0, text)
                 if len(string_rec1) == 0:
@@ -429,8 +428,8 @@ def set_text_entrey(entrery1, entrery2, button):
         if recursive_controll < 2:
             recursive_controll += 1
             button4_rec_gen.config(state=ACTIVE)
-            if len(string_rec1) == 0:
-                string_rec1 = str(entrery1.get())
+        if len(string_rec1) == 0:
+            string_rec1 = str(entrery1.get())
             if len(string_rec1) <= 10:
                 string_rec_len1 = len(string_rec1)
             else:
@@ -456,6 +455,9 @@ def set_text_entrey(entrery1, entrery2, button):
         button.config(state=DISABLED)
         if recursive_controll == 2:
             button3_rec_gen.config(state=ACTIVE)
+            button4_rec_gen.config(state=ACTIVE)
+
+
         return
     # fin method set_text_entrey
 
