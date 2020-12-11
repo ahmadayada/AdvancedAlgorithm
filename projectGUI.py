@@ -49,8 +49,6 @@ try:
 except ImportError as error:
     print("Missing Algorith file ")
 
-
-
 root = Tk()
 sizex = 1200
 sizey = 600
@@ -74,7 +72,6 @@ p_Programming_DataList = []
 dp_and_dc_DataList = []
 greedy_DataList = []
 b_and_b_DataList = []
-
 
 
 def hello():
@@ -200,6 +197,8 @@ my_font = tkfont.Font(family="Times New Roman", size=18, weight="bold", underlin
 title_label.configure(font=my_font)
 title_label.place(x=50, y=150)
 '''_________________________________________________________________________________________________________________'''
+
+
 #############################################
 #       NXET LEVEL                          #
 #############################################
@@ -210,9 +209,9 @@ def all_graph():
     dev_x1 = []
     dev_y1 = []
 
-    size = [4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    size = [4, 4, 5, 5, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 10]
     for x in size:
-        i = 0;
+        i = 0
         s1 = random_protein_sequence_generator(int(x))
         s2 = random_protein_sequence_generator(int(x))
         dev_x1.append(int(x))
@@ -221,11 +220,11 @@ def all_graph():
         end_time = time.time()
         my_time = (end_time - start_time)
         dev_y1.append(my_time)
-    plt.plot(dev_x1, dev_y1)
+    plt.plot(dev_x1, dev_y1, linestyle='dashed')
     '''________________________________'''
     dev_x2 = []
     dev_y2 = []
-    size = [50, 60, 80, 90, 98, 100, 115, 130, 140, 150, 175, 180, 190, 200]
+    size = [50, 60, 80, 90, 98, 100, 110, 115, 130, 140, 150, 160, 175, 180, 190, 200]
     for x in size:
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
@@ -235,12 +234,12 @@ def all_graph():
         end_time = time.time()
         my_time = (end_time - start_time)
         dev_y2.append(my_time)
-    plt.plot(dev_x2, dev_y2)
+    plt.plot(dev_x2, dev_y2, linestyle='dashed')
     '''________________________________'''
     dev_x3 = []
     dev_y3 = []
 
-    size = [4, 5, 6, 6, 7, 8, 8, 9, 10, 10]
+    size = [4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10]
     for x in size:
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
@@ -251,7 +250,7 @@ def all_graph():
         my_time = (end_time - start_time)
         dev_y3.append(my_time)
 
-    plt.plot(dev_x3, dev_y3)
+    plt.plot(dev_x3, dev_y3, linestyle='dashed')
     '''________________________________'''
     dev_x4 = []
     dev_y4 = []
@@ -267,12 +266,12 @@ def all_graph():
         my_time = (end_time - start_time)
         dev_y4.append(my_time)
 
-    plt.plot(dev_x4, dev_y4)
+    plt.plot(dev_x4, dev_y4, linestyle='dashed')
     '''________________________________'''
     dev_x5 = []
     dev_y5 = []
 
-    size = [4, 4, 5, 5, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    size = [4, 4, 5, 5, 6, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10]
     for x in size:
         cost = 0
 
@@ -286,7 +285,7 @@ def all_graph():
         my_time = (end_time - start_time)
         dev_y5.append(my_time)
 
-    plt.plot(dev_x5, dev_y5)
+    plt.plot(dev_x5, dev_y5,linestyle='dashed')
 
     '''________________________________'''
 
@@ -303,7 +302,7 @@ def all_graph():
     run.append(final0[0])
     s1 = random_protein_sequence_generator(150)
     s2 = random_protein_sequence_generator(150)
-    final0 = running(k_strip, s1, s2)
+    inal0 = running(k_strip, s1, s2)
     run.append(final0[0])
     s1 = random_protein_sequence_generator(175)
     s2 = random_protein_sequence_generator(175)
@@ -316,15 +315,15 @@ def all_graph():
 
     plt.plot(size, run, linestyle='dashed')
 
-
     #plt.legend(['Pure Recursive','Pure Dynamic Program.','Greedy Approche Algorithm','Devide & Conquer Alg.','Branch And Bound Algo.'])
-    plt.legend(['Pure Recursive','Pure Dynamic Program.','Greedy Approche Algorithm','Devide & Conquer Alg.','Branch And Bound Algo.','Stripe K Algo.'])
+
+    plt.legend(['Pure Recursive', 'Pure Dynamic Program.', 'Greedy Approche Algorithm', 'Devide & Conquer Alg.',
+                'Branch And Bound Algo.', 'Stripe K Algo.'])
 
     plt.title('All Algorithm')
     plt.xlabel('sequence size', color='b')
-    plt.ylabel('time (sec)', color='b')
+    plt.ylabel('time (sec)', color='r')
     plt.show()
-
 
 
 '''_________________________________________________________________________________________________________________'''
@@ -457,7 +456,6 @@ def set_text_entrey(entrery1, entrery2, button):
             button3_rec_gen.config(state=ACTIVE)
             button4_rec_gen.config(state=ACTIVE)
 
-
         return
     # fin method set_text_entrey
 
@@ -503,10 +501,9 @@ def pure_recursive_graph():
     dev_x = []
     dev_y = []
 
-
-    size = [4, 4,5,5, 6,6, 7,7, 8,8, 9,9,10,10]
+    size = [4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 10, 10, 10, 10]
     for x in size:
-        i=0;
+        i = 0
         s1 = random_protein_sequence_generator(int(x))
         s2 = random_protein_sequence_generator(int(x))
         dev_x.append(int(x))
@@ -516,12 +513,11 @@ def pure_recursive_graph():
         my_time = (end_time - start_time)
         dev_y.append(my_time)
 
-    plt.plot(dev_x,dev_y)
+    plt.plot(dev_x, dev_y)
     plt.title('Pure Recursive Algorithm')
     plt.xlabel('sequence size', color='b')
     plt.ylabel('time (sec)', color='b')
     plt.show()
-
 
 
 # Run Pure Rcursive in other windows
@@ -745,13 +741,13 @@ def reset_all_p_dynamic(*event):
     button_p_dynamic_start.config(state=DISABLED)
     # fin Method reset_all_p_dynamic
 
+
 def p_programming_graph():
     dev_x = []
     dev_y = []
 
     size = [50, 60, 80, 90, 98, 100, 115, 130, 140, 150, 175, 180, 190, 200]
     for x in size:
-
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
         dev_x.append(int(x))
@@ -766,8 +762,6 @@ def p_programming_graph():
     plt.xlabel('sequence size', color='b')
     plt.ylabel('time (sec)', color='b')
     plt.show()
-
-
 
 
 # Run Algorithm Programming Dynamic in other windows
@@ -820,7 +814,8 @@ def run_p_programming(string1, string2):
 
     label4.pack(fill=BOTH, expand=1)
 
-    button2 = Button(label_frame2, text="Generate Random",  bg='#0052cc', fg='#ffffff', command= lambda: p_programming_graph(), padx=1, pady=1)
+    button2 = Button(label_frame2, text="Generate Random", bg='#0052cc', fg='#ffffff',
+                     command=lambda: p_programming_graph(), padx=1, pady=1)
     button2.pack(padx=1, pady=1)
 
     button = Button(label_frame2, text="Dismiss", command=top2.destroy, padx=1, pady=1)
@@ -986,14 +981,12 @@ def reset_all_greedy(*event):
     # fin Method reset_all_greedy
 
 
-
 def greedy_graph():
     dev_x = []
     dev_y = []
 
-    size = [4, 4, 5, 5, 6,6 ,7, 7, 8, 8, 9, 10, 10,10]
+    size = [4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 10, 10, 10]
     for x in size:
-
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
         dev_x.append(int(x))
@@ -1008,6 +1001,7 @@ def greedy_graph():
     plt.xlabel('sequence size', color='b')
     plt.ylabel('time (sec)', color='b')
     plt.show()
+
 
 # Run Algorithm Programming Greedy in other windows
 def run_greedy(string1, string2):
@@ -1217,11 +1211,11 @@ def reset_all_stripe_k(*event):
     # fin Method reset_all_stripe_k
 
 
-
 # generate Graphe stripe k
 def p_stripe_k_graph():
     run = []
-    size = [50, 100, 150, 175, 200]
+    size = [50, 100, 115, 130, 150, 160, 175, 180, 190, 195, 200]
+
     s1 = random_protein_sequence_generator(50)
     s2 = random_protein_sequence_generator(50)
     final0 = running(k_strip, s1, s2)
@@ -1265,7 +1259,6 @@ def run_stripe_k(string1, string2):
     str_len2 = len(string2)
     final = running(k_strip, string1, string2)
 
-
     font2 = tkfont.Font(family="Times New Roman", size=20, weight="bold")
 
     label_frame2 = LabelFrame(top2, text="Stripe K Algorithm:", fg="#01adcb", padx=2, pady=2)
@@ -1289,7 +1282,7 @@ def run_stripe_k(string1, string2):
     start_time = time.time()
 
     min_operations = final
-    #end_time = time.time()
+    # end_time = time.time()
     my_time = final[0]
     label3 = Label(label_frame2, text="Result : Minimum Edit Distance" +
                                       " : {0}\nRun Time : {1}".format(str(min_operations[1][0]),
@@ -1468,7 +1461,7 @@ def devide_graph():
     dev_x = []
     dev_y = []
 
-    size = [50, 66, 77 ,80, 100, 115, 120, 125, 130, 145 ,150, 175, 180, 190, 195, 200]
+    size = [50, 66, 77, 80, 100, 115, 120, 125, 130, 145, 150, 175, 180, 190, 195, 200]
     for x in size:
         string1 = random_protein_sequence_generator(int(x))
         string2 = random_protein_sequence_generator(int(x))
@@ -1484,6 +1477,7 @@ def devide_graph():
     plt.xlabel('sequence size', color='b')
     plt.ylabel('time (sec)', color='b')
     plt.show()
+
 
 # Run Algorithm Programming dp_devide in other windows
 def run_dp_devide(string1, string2):
@@ -1693,11 +1687,12 @@ def reset_all_branch_bond(*event):
     button_branch_bond_start.config(state=DISABLED)
     # fin Method reset_all_branch_bond
 
+
 def branch_bond_graph():
     dev_x = []
     dev_y = []
 
-    size = [4, 4, 5, 5, 6, 7, 7, 8, 8, 9, 9, 10, 10]
+    size = [4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10]
     for x in size:
         cost = 0
 
@@ -1716,8 +1711,9 @@ def branch_bond_graph():
     plt.xlabel('sequence size', color='b')
     plt.ylabel('time (sec)', color='b')
     plt.show()
-# Run Algorithm Programming branch_bond in other windows
 
+
+# Run Algorithm Programming branch_bond in other windows
 
 
 def run_branch_bond(string1, string2):
@@ -1758,11 +1754,11 @@ def run_branch_bond(string1, string2):
     min_operations, a1, a2 = branch_and_bound_edit_distance(string1, string2, cost, bound)
     end_time = time.time()
     my_time = (end_time - start_time)
-    label3 = Label(label_frame2, text='Initial alignment     : ' + str(a2),  fg='#793AB4')
+    label3 = Label(label_frame2, text='Initial alignment     : ' + str(a2), fg='#793AB4')
     label3.configure(font=font2)
     label3.pack(fill=BOTH, expand=1)
 
-    label4 = Label(label_frame2, text='Final alignment       : ' + str(a1),  fg='#793AB4')
+    label4 = Label(label_frame2, text='Final alignment       : ' + str(a1), fg='#793AB4')
     label4.configure(font=font2)
     label4.pack(fill=BOTH, expand=1)
 
@@ -2177,13 +2173,11 @@ button_branch_bond_rest = Button(parent, text='Reset All..', state=DISABLED, com
 button_branch_bond_rest.configure(fg='#793AB4')
 button_branch_bond_rest.place(x=650, y=1051)
 
-
-
 '''END BRANCH AND BOND'''
 '''__________________________________________________________________________________________________________________'''
 button_finall = Button(parent, text="Generate Random For All", bg='#0052cc', fg='#ffffff',
-                     command=lambda: all_graph(), padx=2, pady=2)
-button_finall.place(x=800, y=1150);
+                       command=lambda: all_graph(), padx=2, pady=2)
+button_finall.place(x=800, y=1150)
 
 separator = Frame(height=3, bd=1, relief=SUNKEN)
 separator.pack(fill=X, padx=1, pady=1)
